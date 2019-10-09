@@ -1,0 +1,30 @@
+{
+  "name": "backend-totvs-tools",
+  "version": "1.0.0",
+  "description": "Backend para fazer a comunicação com os bancos progress do Datasul",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon",
+    "start": "node",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kakadlec/totvs-tools.git"
+  },
+  "author": "Karel Kadlec",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kakadlec/totvs-tools/issues"
+  },
+  "homepage": "https://github.com/kakadlec/totvs-tools#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "consign": "^0.1.6",
+    "cors": "^2.8.5",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "dotenv": "^8.1.0"
+  }
+}
