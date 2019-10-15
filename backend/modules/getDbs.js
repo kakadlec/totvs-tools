@@ -10,6 +10,8 @@ const loadConfig = async pathToConfig => {
 
 const getDbs = dbPath => {
   loadConfig(pathToConfig)
+  console.log(config)
+  //Ler o diretorio e pegar o nome dos bancos
 }
 
 module.exports = getDbs
