@@ -11,11 +11,14 @@ consign({
   loggingType: "info"
 })
   .include("./config/middlewares.js")
+  .then("./modules/dbs.js")
+  .then("./modules/users.js")
   .then("./api")
   .then("./config/routes.js")
   .into(app)
 
-require("./modules/getDbs")("Teste")
+app.modules.dbs.getDatabaseNames()
+app.modules.users.getUsers()
 
 app.listen(4100, () => {
   console.log(`Server started on port: 4100`)

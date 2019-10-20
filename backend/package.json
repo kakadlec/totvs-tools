@@ -8,6 +8,11 @@
     "start": "node",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "nodemonConfig": {
+    "ignore": [
+      "config_files/*"
+    ]
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/kakadlec/totvs-tools.git"
@@ -22,7 +27,8 @@
     "body-parser": "^1.19.0",
     "consign": "^0.1.6",
     "cors": "^2.8.5",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "node-powershell": "^4.0.0"
   },
   "devDependencies": {
     "dotenv": "^8.1.0"
