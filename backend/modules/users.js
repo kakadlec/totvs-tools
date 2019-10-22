@@ -1,28 +1,70 @@
 const { oe_path } = require("../config_files/config.json")
 const Shell = require("node-powershell")
-const {
-  pathToDatabases,
-  databases
-} = require("../config_files/databases.json")[0]
+const { pathToDatabases } = require("../config_files/databases.json")[0]
 
 module.exports = app => {
-  const getUsers = () => {
+  const getUsers = async database => {
     const params = "\\proshut"
-    const command = `${oe_path}${params} ${pathToDatabases}${
-      databases[0]
-    } -C list`
+    const command = `${oe_path}${params} ${pathToDatabases}${database} -C list`
     const ps = new Shell({
       executionPolicy: "Bypass",
       noProfile: true
     })
     ps.addCommand(command)
-    ps.invoke()
-      .then(output => {
-        console.log(output)
-      })
+    const output = await ps
+      .invoke()
+      .then(output => output)
       .catch(err => {
         console.log(err)
       })
+
+    let users = []
+    let work = output.split("\n")
+
+    work.shift()
+    work.shift()
+    work.pop()
+
+    work.forEach(item => {
+      user = {
+        id: item.substr(0, 3).trim(),
+        name: item.substr(59, 12).trim()
+      }
+      users.push(user)
+    })
+    return users
   }
-  return { getUsers }
+
+  const disconnectUsers = async usersId => {
+    console.log(usersId)
+    const params = "\\proshut"
+    const command = `${oe_path}${params} ${pathToDatabases}${
+      databases[0]
+    } -C disconnect ${usersId}`
+    const ps = new Shell({
+      executionPolicy: "Bypass",
+      noProfile: true
+    })
+    ps.addCommand(command)
+    const output = await ps
+      .invoke()
+      .then(output => output)
+      .catch(err => {
+        console.log(err)
+      })
+
+    if (output.search(6799) !== -1) {
+      return "Usuário não encontrado"
+    }
+    if (output.search(6796) !== -1) {
+      return "Usuário sendo derrubado!"
+    }
+    if (output.search(1423) !== -1) {
+      return "Nenhum banco de dados online encontrado!"
+    }
+  }
+
+  return { getUsers, disconnectUsers }
 }
+
+// -C disconnect usernum
