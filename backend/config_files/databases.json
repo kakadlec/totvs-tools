@@ -1,1 +1,1 @@
-[{"env":"production","pathToDatabases":"D:\\Bancos\\","databases":["sports1.db","sports2.db","sports3.db"]},{"env":"teste","pathToDatabases":"C:\\temp\\","databases":[]}]
+[{"env":"production","pathToDatabases":"D:\\Bancos\\","databases":["sports1","sports2","sports3"]},{"env":"teste","pathToDatabases":"C:\\temp\\","databases":[]}]

@@ -28,19 +28,18 @@ module.exports = app => {
     work.forEach(item => {
       user = {
         id: item.substr(0, 3).trim(),
-        name: item.substr(59, 12).trim()
+        name: item.substr(59, 12).trim(),
+        db: database
       }
       users.push(user)
     })
+
     return users
   }
 
-  const disconnectUsers = async usersId => {
-    console.log(usersId)
+  const disconnectUsers = async (usersId, database) => {
     const params = "\\proshut"
-    const command = `${oe_path}${params} ${pathToDatabases}${
-      databases[0]
-    } -C disconnect ${usersId}`
+    const command = `${oe_path}${params} ${pathToDatabases}${database} -C disconnect ${usersId}`
     const ps = new Shell({
       executionPolicy: "Bypass",
       noProfile: true
@@ -53,11 +52,11 @@ module.exports = app => {
         console.log(err)
       })
 
-    if (output.search(6799) !== -1) {
-      return "Usuário não encontrado"
-    }
     if (output.search(6796) !== -1) {
       return "Usuário sendo derrubado!"
+    }
+    if (output.search(6799) !== -1) {
+      return "Usuário não encontrado"
     }
     if (output.search(1423) !== -1) {
       return "Nenhum banco de dados online encontrado!"
@@ -66,5 +65,3 @@ module.exports = app => {
 
   return { getUsers, disconnectUsers }
 }
-
-// -C disconnect usernum

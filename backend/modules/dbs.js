@@ -10,8 +10,11 @@ module.exports = app => {
       const env = Object.keys(element)[0]
       const pathToDatabases = Object.values(element)[0]
       const files = fs.readdirSync(pathToDatabases)
-      const databases = files.filter(file => {
+      const databasesFiles = files.filter(file => {
         return path.extname(file) === ".db"
+      })
+      const databases = databasesFiles.map(database => {
+        return database.replace(".db", "")
       })
 
       Object.assign(obj, { env })

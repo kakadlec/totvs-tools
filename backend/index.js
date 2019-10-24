@@ -18,7 +18,6 @@ consign({
   .into(app)
 
 app.modules.dbs.getDatabaseNames()
-app.modules.users.getUsers()
 
 app.listen(4100, () => {
   console.log(`Server started on port: 4100`)
