@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon",
-    "start": "node",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js"
   },
   "nodemonConfig": {
     "ignore": [
@@ -31,6 +30,7 @@
     "node-powershell": "^4.0.0"
   },
   "devDependencies": {
-    "dotenv": "^8.2.0"
+    "dotenv": "^8.2.0",
+    "nodemon": "^2.0.2"
   }
 }

@@ -1,31 +1,25 @@
-const fs = require("fs")
-const path = require("path")
-const config = require("../config_files/config.json")
+const fs = require('fs')
+const path = require('path')
+const config = require('../config_files/config.json')
 
 module.exports = app => {
   const getDatabaseNames = () => {
-    const databasesArray = []
+    const obj = {}
+
     config.env.forEach(element => {
-      const obj = {}
       const env = Object.keys(element)[0]
       const pathToDatabases = Object.values(element)[0]
       const files = fs.readdirSync(pathToDatabases)
       const databasesFiles = files.filter(file => {
-        return path.extname(file) === ".db"
+        return path.extname(file) === '.db'
       })
       const databases = databasesFiles.map(database => {
-        return database.replace(".db", "")
+        return database.replace('.db', '')
       })
 
-      Object.assign(obj, { env })
-      Object.assign(obj, { pathToDatabases })
-      Object.assign(obj, { databases })
-      databasesArray.push(obj)
+      Object.assign(obj, { [env]: { pathToDatabases, databases } })
     })
-    fs.writeFileSync(
-      "./config_files/databases.json",
-      JSON.stringify(databasesArray)
-    )
+    fs.writeFileSync('./config_files/databases.json', JSON.stringify(obj))
   }
   return { getDatabaseNames }
 }
